@@ -3,8 +3,11 @@
 using namespace std;
 
 /* -------------------------------------------------------------------------- */
-CWifi::CWifi() : _timeout(50000){
+CWifi::CWifi() 
+  : _timeout(50000)
+{
 }
+
 /* -------------------------------------------------------------------------- */
 
 static char fw_version[12];
@@ -48,12 +51,20 @@ int CWifi::begin(const char* ssid, const char *passphrase) {
       }
    }
 
-   unsigned long start_time = millis();
-   while(millis() - start_time < 10000){
-      if(status() == WL_CONNECTED) {
-         return WL_CONNECTED;
-      } 
-   }
+   _start_connection_time = millis();
+   return WL_CONNECTING;
+}
+
+int CWifi::isConnected()
+{
+  if (status() == WL_CONNECTED)
+	return WL_CONNECTED;
+	
+  if (millis() - _start_connection_time < _timeout)
+  {
+	return WL_CONNECTING;
+  } 
+
   return WL_CONNECT_FAILED;
 }
 
@@ -555,7 +566,7 @@ unsigned long CWifi::getTime() {
 
 
 void CWifi::setTimeout(unsigned long timeout) {
-   (void)(timeout);  
+   _timeout = timeout;
 }
 
 

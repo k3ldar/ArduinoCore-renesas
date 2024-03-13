@@ -37,6 +37,7 @@ class CWifi {
 private: 
    void _config(IPAddress local_ip, IPAddress gateway, IPAddress subnet, IPAddress dns1, IPAddress dns2);
    unsigned long _timeout;
+   unsigned long _start_connection_time;
    std::vector<CAccessPoint> access_points;
    std::string ssid;
    std::string apssid;
@@ -282,7 +283,11 @@ public:
 
     void setTimeout(unsigned long timeout);
 
-    
+	/*
+	 * Determines the connected state
+	 * Can be WL_CONNECT_FAILED, WL_CONNECTED or WL_CONNECTING
+	 */
+    int isConnected();
 };
 
 extern CWifi WiFi;
