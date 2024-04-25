@@ -65,7 +65,11 @@ public:
   void setConnectionTimeout(int timeout) {
     _connectionTimeout = timeout;
   }
-
+  
+  int getConnectionTimeout() {
+	  return _connectionTimeout;
+  }
+  
   friend class WiFiServer;
   
   using Print::write;

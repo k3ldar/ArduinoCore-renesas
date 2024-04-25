@@ -47,19 +47,26 @@ int WiFiClient::connect(IPAddress ip, uint16_t port){
 int WiFiClient::connect(const char *host, uint16_t port){
 /* -------------------------------------------------------------------------- */   
    getSocket();
-   if(_sock >= 0) {
+   Serial.print("Socket: ");
+   Serial.println(_sock);
+   if(_sock >= 0)
+   {
       string res = "";
       modem.begin();
-      if (_connectionTimeout) {
-         if(modem.write(string(PROMPT(_CLIENTCONNECT)),res, "%s%d,%s,%d,%d\r\n" , CMD_WRITE(_CLIENTCONNECT), _sock, host,port, _connectionTimeout)) {
+	  
+      if (_connectionTimeout)
+	  {
+         if(modem.write(string(PROMPT(_CLIENTCONNECT)), res, "%s%d,%s,%d,%d\r\n", CMD_WRITE(_CLIENTCONNECT), _sock, host, port, _connectionTimeout))
+		 {
             return 1;
          }
-      } else {
-      if(modem.write(string(PROMPT(_CLIENTCONNECTNAME)),res, "%s%d,%s,%d\r\n" , CMD_WRITE(_CLIENTCONNECTNAME), _sock, host,port)) {
+      } 
+	  else if(modem.write(string(PROMPT(_CLIENTCONNECTNAME)), res, "%s%d,%s,%d\r\n", CMD_WRITE(_CLIENTCONNECTNAME), _sock, host, port)) 
+	  {
          return 1;
-      }  
       }
    }
+   
    return 0;
 }
 
