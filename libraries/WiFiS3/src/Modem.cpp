@@ -123,7 +123,7 @@ bool ModemClass::write(const string &prompt, string &data_res, char * fmt, ...){
    }
 
    _serial->write(tx_buff,strlen((char *)tx_buff));
-   return buf_read(prompt,data_res);;
+   return buf_read(prompt,data_res);
 }
 
 
