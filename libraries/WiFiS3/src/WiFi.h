@@ -283,10 +283,10 @@ public:
 
     void setTimeout(unsigned long timeout);
 
-	/*
-	 * Determines the connected state
-	 * Can be WL_CONNECT_FAILED, WL_CONNECTED or WL_CONNECTING
-	 */
+    /*
+     * Determines the connected state
+     * Can be WL_CONNECT_FAILED, WL_CONNECTED or WL_CONNECTING
+     */
     int isConnected();
 };
 

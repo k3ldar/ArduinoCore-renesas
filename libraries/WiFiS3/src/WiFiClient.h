@@ -30,8 +30,6 @@
 #include "FifoBuffer.h"
 #include <memory>
 
-#define RX_BUFFER_DIM_WIFI 1024
-
 class WiFiClient : public Client {
 
 public:
@@ -65,23 +63,23 @@ public:
   void setConnectionTimeout(int timeout) {
     _connectionTimeout = timeout;
   }
-  
+
   int getConnectionTimeout() {
-	  return _connectionTimeout;
+      return _connectionTimeout;
   }
-  
+
   friend class WiFiServer;
-  
+
   using Print::write;
 
 protected:
   int _sock;
   int _connectionTimeout = 0;
   void getSocket();
-  std::shared_ptr<FifoBuffer<uint8_t,RX_BUFFER_DIM_WIFI>> rx_buffer;
+  static constexpr uint32_t RX_BUFFER_DIM = 1024;
+  std::shared_ptr<FifoBuffer<uint8_t,RX_BUFFER_DIM>> rx_buffer;
   int _read();
   void read_if_needed(size_t s);
-  void clear_buffer();
   bool destroy_at_distructor;
 
 
